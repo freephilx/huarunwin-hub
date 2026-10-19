@@ -2,14 +2,14 @@
 
 华润赢客户端的公共资源仓库，用于存放更新信息，并为后续公告、文档和图片等公共内容预留空间。
 
-更新相关文件统一放在 `updates/`，后续公告、文档和图片可使用各自目录。
+供客户端读取的静态 JSON 文件统一放在 `api/`，后续公告、文档和图片可使用各自目录。
 
 ## 客户端更新
 
-客户端读取 [updates/updates.json](updates/updates.json)，固定地址为：
+客户端读取 [api/updates.json](api/updates.json)，固定地址为：
 
 ```text
-https://raw.githubusercontent.com/freephilx/huarunwin-hub/main/updates/updates.json
+https://raw.githubusercontent.com/freephilx/huarunwin-hub/main/api/updates.json
 ```
 
 - `release`：正式渠道；`debug`：测试渠道。两者独立维护，不互相回退。
