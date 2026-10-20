@@ -22,13 +22,14 @@ https://raw.githubusercontent.com/huarunwin/huarunwin-hub/main/api/updates.json
 
 默认发布页保留完整版本，例如 `0.1.0-pre.42` 对应 `/releases/tag/v0.1.0-pre.42`，不自动改为 `/releases/tag/pre`。当前 dev 预发布使用固定 `pre` tag，测试渠道应通过显式版本安装包直链或 `packages` 指向实际资源。尚不支持该默认规则的旧客户端仍要求顶层 `downloadUrl`，兼容期间继续保留该字段。
 
-安装包由[客户端仓库的 Releases](https://github.com/huarunwin/huarunwin/releases)托管，本仓库保存更新信息。两个渠道的 `publishedVersion` 均为 `null`，版本列表为空。2026-10-20 清理失效的 `v0.1.0` 发布链接后，待实际安装包发布并核验可下载，再添加对应版本记录并启用在线更新提醒。
+安装包由[客户端仓库的 Releases](https://github.com/huarunwin/huarunwin/releases)托管，本仓库保存更新信息。两个渠道的 `publishedVersion` 均为 `null`；正式渠道已准备 `0.1.0` 日志，省略 `downloadUrl`，尚未启用在线更新提醒。待实际安装包发布并核验可下载后，再推进正式渠道的发布指针。
 
 ## 发布顺序
 
-1. 在对应渠道的 `releases` 中准备版本说明；使用默认发布页时可省略 `downloadUrl`，其他来源填写实际下载地址。
-2. 上传安装包，确认用户能够匿名访问该版本的默认发布页或显式下载地址及实际附件。
-3. 将该渠道的 `publishedVersion` 改为该版本并提交。不要在安装包可用之前推进此字段。
+1. 正式 tag 创建前，在 `release.releases` 中准备去掉 `v` 前缀的精确版本及非空字符串数组 `changes`，版本记录必须唯一，并先提交推送到本仓库 `main`。使用默认发布页时可省略 `downloadUrl`，其他来源填写实际下载地址；保留原 `publishedVersion`，首次发布保持 `null`。
+2. 在相邻客户端仓库根目录执行 `python3 tool/ci/release.py check-tag vX.Y.Z`，确认本地日志及匿名可读的远端 Hub 记录均有效后，再创建并推送正式 tag。仅修改本地 Hub 文件不算就绪；读取失败、版本缺失或日志无效时停止。正式 tag 的 Actions 会在安装工具链前重复校验，dev／PR 不要求这一步。
+3. 构建并上传安装包，确认用户能够匿名访问该版本的默认发布页或显式下载地址及实际附件。
+4. 将该渠道的 `publishedVersion` 改为该版本并提交推送。不要在安装包可用之前推进此字段。
 
 客户端本地 debug 运行默认使用测试渠道，正式构建默认使用正式渠道；采用 release 编译模式的测试包通过 `--dart-define=HUARUNWIN_UPDATE_CHANNEL=debug` 显式选择测试渠道。客户端仓库里的 `changelog.json` 用于随包保存日志和 tag 编译校验，本文件是在线更新判断的唯一来源。
 
