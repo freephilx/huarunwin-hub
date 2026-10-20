@@ -3,6 +3,16 @@
     "publishedVersion": "0.2.0",
     "releases": [
       {
+        "version": "0.3.0",
+        "changes": [
+          "Android 机场与 VPS 的购买、访问链接改为应用内打开。",
+          "改进 Android 应用库文件明细的信息复用，减少进入与刷新时的闪烁。",
+          "应用、机场、VPS 和阅读详情支持分享标题及完整链接；系统不支持时提供复制链接。",
+          "macOS 与 Windows 应用显示名称统一为“华润赢”。",
+          "补充 macOS 首次打开时的安装提示。"
+        ]
+      },
+      {
         "version": "0.2.0",
         "changes": [
           "修复 Windows 自身更新的路径检查与 PowerShell 模块兼容问题。",
