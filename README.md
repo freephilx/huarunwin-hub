@@ -27,11 +27,11 @@ https://raw.githubusercontent.com/huarunwin/huarunwin-hub/main/api/updates.json
 ## 发布顺序
 
 1. 正式 tag 创建前，在 `release.releases` 中准备去掉 `v` 前缀的精确版本及非空字符串数组 `changes`，版本记录必须唯一，并先提交推送到本仓库 `main`。使用默认发布页时可省略 `downloadUrl`，其他来源填写实际下载地址；保留原 `publishedVersion`，首次发布保持 `null`。
-2. 在相邻客户端仓库根目录执行 `python3 tool/ci/release.py check-tag vX.Y.Z`，确认本地日志及匿名可读的远端 Hub 记录均有效后，再创建并推送正式 tag。仅修改本地 Hub 文件不算就绪；读取失败、版本缺失或日志无效时停止。正式 tag 的 Actions 会在安装工具链前重复校验，dev／PR 不要求这一步。
+2. 在相邻客户端仓库根目录执行 `python3 tool/ci/release.py check-tag vX.Y.Z`，确认匿名可读的远端 Hub 记录有效后，再创建并推送正式 tag。仅修改本地 Hub 文件不算就绪；读取失败、版本缺失或日志无效时停止。正式 tag 的 Actions 会在安装工具链前重复校验，dev／PR 不要求这一步。
 3. 构建并上传安装包，确认用户能够匿名访问该版本的默认发布页或显式下载地址及实际附件。
 4. 将该渠道的 `publishedVersion` 改为该版本并提交推送。不要在安装包可用之前推进此字段。
 
-客户端本地 debug 运行默认使用测试渠道，正式构建默认使用正式渠道；采用 release 编译模式的测试包通过 `--dart-define=HUARUNWIN_UPDATE_CHANNEL=debug` 显式选择测试渠道。客户端仓库里的 `changelog.json` 用于随包保存日志和 tag 编译校验，本文件是在线更新判断的唯一来源。
+客户端本地 debug 运行默认使用测试渠道，正式构建默认使用正式渠道；采用 release 编译模式的测试包通过 `--dart-define=HUARUNWIN_UPDATE_CHANNEL=debug` 显式选择测试渠道。本文件是客户端更新判断、日志展示、tag 前置校验及 Release 说明的唯一数据源，不在客户端仓库或安装包中维护日志副本。正式发布取对应 `release` 版本日志；dev 发布只取 `debug` 渠道对应完整预发布版本的日志，未准备时省略日志段。
 
 ## 许可
 
