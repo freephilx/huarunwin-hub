@@ -3,6 +3,14 @@
     "publishedVersion": null,
     "releases": [
       {
+        "version": "0.2.0",
+        "changes": [
+          "修复 Windows 自身更新的路径检查与 PowerShell 模块兼容问题。",
+          "改进 Windows 便携版更新的文件替换与失败恢复，避免文件占用时留下不完整目录。",
+          "修复窄屏应用及服务详情主操作按钮的配色与字号。"
+        ]
+      },
+      {
         "version": "0.1.0",
         "changes": [
           "支持应用目录、搜索筛选及原生详情浏览。",

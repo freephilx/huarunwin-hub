@@ -22,7 +22,7 @@ https://raw.githubusercontent.com/huarunwin/huarunwin-hub/main/api/updates.json
 
 默认发布页保留完整版本，例如 `0.1.0-pre.42` 对应 `/releases/tag/v0.1.0-pre.42`，不自动改为 `/releases/tag/pre`。当前 dev 预发布使用固定 `pre` tag，测试渠道应通过显式版本安装包直链或 `packages` 指向实际资源。尚不支持该默认规则的旧客户端仍要求顶层 `downloadUrl`，兼容期间继续保留该字段。
 
-安装包由[客户端仓库的 Releases](https://github.com/huarunwin/huarunwin/releases)托管，本仓库保存更新信息。两个渠道的 `publishedVersion` 均为 `null`；正式渠道已准备 `0.1.0` 日志，省略 `downloadUrl`，尚未启用在线更新提醒。待实际安装包发布并核验可下载后，再推进正式渠道的发布指针。
+安装包由[客户端仓库的 Releases](https://github.com/huarunwin/huarunwin/releases)托管，本仓库保存更新信息。两个渠道的 `publishedVersion` 均为 `null`；正式渠道已准备 `0.1.0`、`0.2.0` 日志，省略 `downloadUrl`，尚未启用在线更新提醒。待实际安装包发布并核验可下载后，再推进正式渠道的发布指针。
 
 ## 发布顺序
 
