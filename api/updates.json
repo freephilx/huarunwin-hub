@@ -3,6 +3,12 @@
     "publishedVersion": "0.5.0",
     "releases": [
       {
+        "version": "0.5.2",
+        "changes": [
+          "宽屏侧栏的“应用”统一更名为“发现”，同步折叠提示及无障碍名称，与手机导航保持一致。"
+        ]
+      },
+      {
         "version": "0.5.1",
         "changes": [
           "新增 jsDelivr 内容镜像，自动模式依次尝试华润赢网站、GitHub Raw 和 jsDelivr，也可在设置中固定选择来源。",
