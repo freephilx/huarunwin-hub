@@ -16,8 +16,9 @@
 - 涉及客户端更新数据格式、版本与渠道规则、下载地址或发布流程时，应联动检查双方的实现、配置与文档，并同步完成必要改动。客户端约定见 [../huarunwin/AGENTS.md](../huarunwin/AGENTS.md)，更新解析入口为 `../huarunwin/lib/data/app_changelog.dart`。
 - 操作前读取各自的 `AGENTS.md`，分别检查 Git 状态并保留已有改动；提交、推送与发布按用户任务范围分别在对应仓库处理，完成时说明双方结果。
 - 更新字段与发布顺序维护在 [README.md](README.md)，客户端更新流程见 [../huarunwin/docs/self-updating.md](../huarunwin/docs/self-updating.md)。修改协议时同步维护这些文档。
-- 客户端仅依据 `api/updates.json` 中各渠道的 `publishedVersion` 判断在线更新，安装包托管于客户端仓库 Releases。先确认对应版本安装包可用，再推进发布指针；尚未发布的渠道保持 `publishedVersion: null`。`api/updates.json` 同时是客户端日志展示、tag 前置校验及 Release 说明的唯一数据源，客户端不维护独立日志文件。
-- 创建或推送客户端正式 tag 前，先将对应版本的预备日志提交推送到本仓库 `main`：`release.releases` 须有去掉 tag 的 `v` 前缀后的精确版本、唯一记录及非空字符串数组 `changes`。`downloadUrl` 可省略，预备日志不推进 `publishedVersion`。再从客户端根目录运行 `python3 tool/ci/release.py check-tag vX.Y.Z`，匿名读取远端校验成功后才能创建并推送 tag；仅修改本地文件、只提供 debug 渠道日志或无法读取远端时均不能继续。
+- 客户端仅依据 `api/updates.json` 中各渠道的 `publishedVersion` 判断在线更新，安装包托管于客户端仓库 Releases。正式渠道先确认对应版本安装包可用，再推进 `release.publishedVersion`；debug 指针按下条新增 tag 规则同步目标版本，未设置更新目标的渠道保持 `publishedVersion: null`。`api/updates.json` 同时是客户端日志展示、tag 前置校验及 Release 说明的唯一数据源，客户端不维护独立日志文件。
+- 每次新增客户端正式 tag，必须同时维护 `api/updates.json` 的 `debug` 信息：在 `debug.releases` 新增或更新该版本的唯一记录，提供非空字符串数组 `changes`，保留历史记录，并将 `debug.publishedVersion` 设置为该 tag 去掉 `v` 后的版本，例如 `v0.7.0` 对应 `0.7.0`。这属于新增 tag 任务的必要步骤，无需另行询问；与正式渠道预备日志一起提交推送到本仓库 `main` 后再推 tag，不等构建结束或用户再次提醒才修改 debug 指针。此规则不改变客户端构建渠道、签名身份及安装校验，固定 `pre` tag 仍按完整预发布版本维护。
+- 创建或推送客户端正式 tag 前，先将对应版本的预备日志提交推送到本仓库 `main`：`release.releases` 须有去掉 tag 的 `v` 前缀后的精确版本、唯一记录及非空字符串数组 `changes`。`downloadUrl` 可省略，正式渠道预备日志不推进 `release.publishedVersion`，debug 记录与指针按上条同步。再从客户端根目录运行 `python3 tool/ci/release.py check-tag vX.Y.Z`，匿名读取远端校验成功后才能创建并推送 tag；仅修改本地文件、只提供 debug 渠道日志或无法读取远端时均不能继续。
 
 ## 文档与验证
 
